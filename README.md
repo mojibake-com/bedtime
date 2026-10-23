@@ -93,7 +93,7 @@ Optional `moonraker.conf` snippet, once this directory is a git checkout with a 
 type: git_repo
 primary_branch: main
 path: ~/bedtime
-origin: https://github.com/YOU/bedtime.git
+origin: https://github.com/mojibake-com/bedtime.git
 managed_services: klipper
 is_system_service: False
 ```
@@ -140,4 +140,11 @@ Arm and disarm stick until you flip them or restart Klipper. They are not per-pr
 - It does not wait until the bed has reached a temperature before ending the print. It only moves the shutoff earlier, so the bed is already falling when the toolhead stops.
 - M73 is integer minutes, so the shutoff can be up to about a minute off the lead you asked for. Layer-time files from Cura are finer. The file-size fallback is coarser than either.
 - Slicer time is not Klipper time. If the slicer's acceleration is far from the printer's, the "few minutes" will drift. Match the printer limits in the slicer, and use the speed slider rather than expecting Bedtime to notice a one-off `M204`.
-# bedtime
+
+## Tests
+
+The parser and the shutoff decision are covered by unit tests. They do not import Klipper.
+
+```bash
+python3 -m unittest tests.test_bedtime
+```
